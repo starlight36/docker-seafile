@@ -1,0 +1,46 @@
+#!/usr/bin/expect -f
+
+set timeout 60
+
+spawn ./setup-seafile-mysql.sh
+
+expect "\[ server name \]"
+send "Seafile\r"
+
+expect "\[ This server's ip or domain \]"
+send "${SEAFILE_HOST}\r"
+
+expect "\[ default "/opt/seafile/seafile-data" \]"
+send "\r"
+
+expect "\[ default "8082" \]"
+send "\r"
+
+expect "\[ 1 or 2 \]"
+send "2\r"
+
+expect "\[ default "localhost" \]"
+send "${DB_HOST-mysql}\r"
+
+expect "\[ default "3306" \]"
+send "${DB_PORT-3306}\r"
+
+expect "\[ mysql user for seafile \]"
+send "${DB_USER-root}\r"
+
+expect "\[ password for seafile \]"
+send "${DB_PASS}\r"
+
+expect "\[ ccnet database \]"
+send "${DB_NAME}\r"
+
+expect "\[ seafile database \]"
+send "${DB_NAME}\r"
+
+expect "\[ seahub database \]"
+send "${DB_NAME}\r"
+
+expect "Press ENTER to continue, or Ctrl-C to abort"
+send "\r"
+
+exit
